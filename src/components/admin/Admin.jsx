@@ -89,7 +89,6 @@ const Admin = () => {
   const status_ls = localStorage.getItem("status")
   const mode_ls = localStorage.getItem("mode")
   const status_mode_ls = localStorage.getItem("status_mode")
-  const current_section_ls = localStorage.getItem("current_section")
   const first_reload_ls = localStorage.getItem("first_reload")
   const warn_mode_ls = localStorage.getItem("warn_mode")
   const current_template_ls = localStorage.getItem("current_template")
@@ -581,6 +580,8 @@ const Admin = () => {
 
   const handleUpdatePrompt = e => {
     e.preventDefault()
+    // console.log(template);
+    
     if (current_template_ls == "prompt_template") {
       updateMainPrompt(data.user_id, template)
         .then(_ => {
@@ -821,7 +822,6 @@ const Admin = () => {
     localStorage.setItem("current_template", value)
     setCurrnetTemplate(value)
     get_chatbot_config(data.user_id)
-    window.location.reload()
     return;
   }
 
@@ -1099,16 +1099,16 @@ const Admin = () => {
                 <h1>Template</h1>
               </div>
             </div>
-            <div className="main-template" style={currentSettingPrompt.main ? { backgroundColor: "rgba(0, 0, 0, 0.4)" } : null} onClick={() => setCurrentSettingPrompt({ main: true, secondery: false, test_main: false, test_secondery: false })}>
+            <div className="main-template" style={current_template_ls == "prompt_template" ? { backgroundColor: "rgba(0, 0, 0, 0.4)" } : null} onClick={() => {selectTemplate("prompt_template"); setCurrentSettingPrompt({ main: true, secondery: false, test_main: false, test_secondery: false })}}>
               <h1>(main) advice template</h1>
             </div>
-            <div className="secondery-template" style={currentSettingPrompt.secondery ? { backgroundColor: "rgba(0, 0, 0, 0.4)" } : null} onClick={() => setCurrentSettingPrompt({ main: false, secondery: true, test_main: false, test_secondery: false })}>
+            <div className="secondery-template" style={current_template_ls == "prompt_template_just_venting" ? { backgroundColor: "rgba(0, 0, 0, 0.4)" } : null} onClick={() => {selectTemplate("prompt_template_just_venting"); setCurrentSettingPrompt({ main: false, secondery: true, test_main: false, test_secondery: false })}}>
               <h1>(main) just venting template</h1>
             </div>
-            <div className="test-main" style={currentSettingPrompt.test_main ? { backgroundColor: "rgba(0, 0, 0, 0.4)" } : null} onClick={() => setCurrentSettingPrompt({ main: false, secondery: false, test_main: true, test_secondery: false })}>
+            <div className="test-main" style={current_template_ls == "prompt_template_test" ? { backgroundColor: "rgba(0, 0, 0, 0.4)" } : null} onClick={() => {selectTemplate("prompt_template_test"); setCurrentSettingPrompt({ main: false, secondery: false, test_main: true, test_secondery: false })}}>
               <h1>(test) advice template</h1>
             </div>
-            <div className="test-secondery" style={currentSettingPrompt.test_secondery ? { backgroundColor: "rgba(0, 0, 0, 0.4)" } : null} onClick={() => setCurrentSettingPrompt({ main: false, secondery: false, test_main: false, test_secondery: true })}>
+            <div className="test-secondery" style={current_template_ls == "prompt_template_just_venting_test" ? { backgroundColor: "rgba(0, 0, 0, 0.4)" } : null} onClick={() => {selectTemplate("prompt_template_just_venting_test"); setCurrentSettingPrompt({ main: false, secondery: false, test_main: false, test_secondery: true })}}>
               <h1>(test) just venting template</h1>
             </div>
             <div className="empty-prompt">
@@ -1142,7 +1142,7 @@ const Admin = () => {
                     <button type="submit">{LANGUAGES.messages[language].save}</button>
                   </div>
                 </div>
-                <textarea name="prompt_justventing" defaultValue={chatbotConfig.prompt_template_just_venting} placeholder='Empty' onChange={e => handleChangeTemplate(e)}></textarea>
+                <textarea name="prompt_template_just_venting" defaultValue={chatbotConfig.prompt_template_just_venting} placeholder='Empty' onChange={e => handleChangeTemplate(e)}></textarea>
               </form>
             </div>
             <div className="template-test" style={currentSettingPrompt.test_main ? { display: "flex" } : { display: "none" }} >
@@ -1166,7 +1166,7 @@ const Admin = () => {
                     <button type="submit">{LANGUAGES.messages[language].save}</button>
                   </div>
                 </div>
-                <textarea name="prompt_justventing_test" defaultValue={chatbotConfig.prompt_template_just_venting_test} placeholder='Empty' onChange={e => handleChangeTemplate(e)}></textarea>
+                <textarea name="prompt_template_just_venting_test" defaultValue={chatbotConfig.prompt_template_just_venting_test} placeholder='Empty' onChange={e => handleChangeTemplate(e)}></textarea>
               </form>
             </div>
           </div>
