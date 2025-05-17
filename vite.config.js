@@ -7,15 +7,5 @@ export default defineConfig({
   build: {
     chunkSizeWarningLimit: 1500
   },
-  base: "/",
-  server: {
-    proxy: {
-      '/api': {
-        target: "https://server-dp.onrender.com",
-        changeOrigin: true,
-        secure: true,
-        rewrite: (path) => path.replace(/^\/api/, '')
-      }
-    }
-  }
+  base: "./"
 })
