@@ -45,6 +45,7 @@
             "typeing": "กำลังพิมพ์...",
             "warnchat": "ขออภัยมีข้อผิดพลาดเกิดขึ้น กรุณาลองใหม่อีกครั้งในภายหลัง",
             "countlimit": "คุณใช้จำนวนครั้งหมดแล้ว",
+            "skip": "ข้าม",
             "messgaesInto": {
                 "1": "ในวันที่คุณรู้สึกว่าไม่มีใครเข้าใจคุณ...",
                 "2": "เราพร้อมรับฟังคุณเสมอ",
@@ -112,6 +113,7 @@
             "typeing": "Typing...",
             "warnchat": "Sorry, there is an error at this time. Please try again later.",
             "countlimit": "You have used up the number of times.",
+            "skip": "SKIP",
             "messgaesInto": {
                 "1": "On the day you feel like no one understands you...",
                 "2": "We are always here to listen to you.",

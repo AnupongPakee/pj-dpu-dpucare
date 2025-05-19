@@ -878,6 +878,7 @@ function App() {
     <div className='app' style={THEMES[theme].background}>
       <div className="block-blur"></div>
       <div className="animetion-start" style={intoAnimetion ? { display: "none" } : THEMES[theme].background}>
+      <button className='skip' onClick={() => setIntoAnimetion(true)} >{LANGUAGES.messages[language].skip}</button>
         <h1 style={LANGUAGES.fontFamily.th} key={index}>{message_title[index]}</h1>
       </div>
       <div className="content-app" style={LANGUAGES.fontFamily[language]}>
