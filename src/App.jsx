@@ -940,10 +940,10 @@ function App() {
                   {messages.map((item, idx) => {
                     return (
                       <div key={idx}>
-                        <div className="human-message">
+                        <div className="human-message" style={item.question == "" ? { display: "none" } : { display: "block" }}>
                           <h1>{item.question}</h1>
                         </div>
-                        <div className="ai-message">
+                        <div className="ai-message" style={item.answer == "" ? { display: "none" } : { display: "block" }}>
                           <pre>{formatBold(item.answer)}</pre>
                         </div>
                       </div>
@@ -968,7 +968,7 @@ function App() {
                   {messageMode.map((item, idx) => {
                     return (
                       <div key={idx}>
-                        <div className="human-message-mode-2">
+                        <div className="human-message-mode-2" style={item.question == "" ? { display: "none" } : { display: "block" }} >
                           <h1>{item.question}</h1>
                         </div>
                         <div className="ai-message" style={item.answer == "" ? { display: "none" } : { display: "block" }}>

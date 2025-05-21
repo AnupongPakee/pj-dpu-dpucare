@@ -927,10 +927,10 @@ const Admin = () => {
                   {messages.map((item, idx) => {
                     return (
                       <div key={idx}>
-                        <div className="human-message">
+                        <div className="human-message" style={item.question == "" ? { display: "none" } : { display: "block" }}>
                           <h1>{item.question}</h1>
                         </div>
-                        <div className="ai-message">
+                        <div className="ai-message" style={item.answer == "" ? { display: "none" } : { display: "block" }}>
                           <pre>{formatBold(item.answer)}</pre>
                         </div>
                       </div>
@@ -955,8 +955,8 @@ const Admin = () => {
                   {messageMode.map((item, idx) => {
                     return (
                       <div key={idx}>
-                        <div className="human-message-mode-2">
-                          <h1>{item.question}</h1>
+                        <div className="human-message-mode-2" style={item.question == "" ? { display: "none" } : { display: "block" }}>
+                          <h1 style={item.question == "" ? { display: "none" } : { display: "block" }} >{item.question}</h1>
                         </div>
                         <div className="ai-message" style={item.answer == "" ? { display: "none" } : { display: "block" }}>
                           <pre>{formatBold(item.answer)}</pre>
@@ -968,7 +968,7 @@ const Admin = () => {
                 </div>
                 <div className="input">
                   <div className="input-user">
-                    <form style={isActive && isLast ? THEMES[theme].loader : null} onSubmit={handleChatbot}>
+                    <form style={isActive ? THEMES[theme].loader : null} onSubmit={handleChatbot}>
                       <input type="text" name='question' id='questionv2' placeholder={LANGUAGES.messages[language].secondinput} onChange={e => setQuestion(e.target.value)} required disabled={isActive} />
                       {isRunning ? count : <FontAwesomeIcon icon={faPaperPlane} className='fa-input-user' />}
                     </form>
