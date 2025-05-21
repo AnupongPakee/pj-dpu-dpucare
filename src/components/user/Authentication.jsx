@@ -399,6 +399,8 @@ function Authentication() {
     startCountdown()
     forgotPass(verify.verify_tk, verify.verification_code, data)
       .then(_ => {
+        setIsActive(false)
+        setTimeLeft(0)
         setStateForgotPass(false);
         setBlockFrom(true)
         return;
