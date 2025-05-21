@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import {
   faPalette, faForwardFast, faPlay, faPause,
   faBars, faVolumeHigh, faTrash, faExpand,
-  faPaperPlane, faRightFromBracket, faPlus,
+  faPaperPlane, faRightFromBracket,
   faPlug, faXmark, faGear, faLanguage,
   faRepeat, faVolumeXmark, faFlag, faPenToSquare
 } from "@fortawesome/free-solid-svg-icons"
@@ -128,6 +128,31 @@ const Admin = () => {
     }
     testConnect()
       .then(_ => {
+        deleteSectionNonUser(current_uuid_ls)
+          .then(_ => {
+            return;
+          })
+          .catch(err => {
+            console.log(err);
+            setToast({
+              show: true,
+              text: LANGUAGES.messages[language].error.mainerror,
+              duration: 10000,
+              status: "error",
+              showIcon: true,
+              icon: faFlag,
+              flag: true,
+              report: {
+                "user_id": data.user_id,
+                "timestamp": timesmp,
+                "title": err.response.statusText,
+                "description": err.stack,
+                "status": err.status
+              }
+            })
+            handleTime(10500)
+            return;
+          })
         if (status_ls == "login") {
           getUser()
             .then(res => {
@@ -733,7 +758,6 @@ const Admin = () => {
             localStorage.removeItem("status_mode")
             localStorage.removeItem("mode")
             localStorage.removeItem("first_reload")
-            localStorage.removeItem("current_uuid")
             localStorage.removeItem("current_template")
             localStorage.removeItem("current_section")
             localStorage.setItem("status", "view")
