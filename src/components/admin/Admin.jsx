@@ -33,6 +33,7 @@ const Admin = () => {
   const [data, setData] = useState({})
   const [currentSongIndex, setCurrentSongIndex] = useState(0);
   const [statePlay, setStatePlay] = useState(false)
+  const [staeOnOff, setStateOnOff] = useState(0);
   const [warn, setWarn] = useState(false)
   const [count, setCount] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
@@ -245,6 +246,33 @@ const Admin = () => {
   }
 
   const scrollToBottom = () => messageEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+
+  const showOnOffChatHistory = check => {
+    const chatStyle = document.getElementById("chatbot")
+    const chatHistoryStyle = document.getElementById("chat-history")
+    const miniMenu = document.getElementById("mini-menu")
+
+    if (check == "window") {
+      setStateOnOff((prev) => {
+        const newState = prev + 1;
+        if (newState === 1) {
+          chatStyle.style.gridColumn = "2 / 3 span"
+          chatHistoryStyle.style.display = "none"
+          miniMenu.style.display = "none"
+        }
+        if (newState === 2) {
+          chatStyle.style.gridColumn = "3 / 3 span"
+          chatHistoryStyle.style.display = "block"
+          miniMenu.style.display = "flex"
+          return 0;
+        }
+        return newState;
+      })
+    } else {
+      create_section(data.user_id)
+      return;
+    }
+  }
 
   const playOnOff = () => {
     setStatePlay((prev => {
@@ -886,6 +914,7 @@ const Admin = () => {
                 <div className="mini-menu">
                   {mode_ls == "advice" ? null : <FontAwesomeIcon icon={faTrash} className='fa-mini' onClick={() => delete_section()} />}
                   <FontAwesomeIcon icon={faTrash} className='fa-mini' style={mode_ls == "advice" ? { display: "block" } : { display: "none" }} onClick={() => delete_section()} />
+                  <FontAwesomeIcon style={platform == "phone" && mode_ls == "just_venting" ? { display: "none" } : { display: "block" }} icon={faExpand} className='fa-mini' onClick={() => showOnOffChatHistory(platform)} />
                 </div>
               </div>
             )}
