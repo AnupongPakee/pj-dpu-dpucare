@@ -161,7 +161,7 @@ function Authentication() {
 
   const handleGoogleAuth = async res => {
     startCountdown()
-    await fetch("/api/auth-google", {
+    await fetch("https://server-dp.onrender.com/auth-google", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -398,9 +398,8 @@ function Authentication() {
     e.preventDefault()
     startCountdown()
     forgotPass(verify.verify_tk, verify.verification_code, data)
-      .then(res => res.json())
       .then(_ => {
-        navigate("//authentication")
+        navigate("/authentication")
         return;
       })
       .catch(err => {
