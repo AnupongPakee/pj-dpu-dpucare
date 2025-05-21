@@ -28,6 +28,7 @@ function Authentication() {
   const [showPass, setShowPass] = useState(false)
   const [timeLeft, setTimeLeft] = useState(0);
   const [isActive, setIsActive] = useState(false);
+  const [blockFrom, setBlockFrom] = useState(true);
   const [toast, setToast] = useState({
     show: false,
     text: "",
@@ -147,14 +148,13 @@ function Authentication() {
   }
 
   const switchFormForgotPass = check => {
-    const block_form = document.getElementById("block-form")
     if (check) {
-      block_form.style.display = "none"
       setStateForgotPass(true)
+      setBlockFrom(false)
       return
     } else {
-      block_form.style.display = "block"
       setStateForgotPass(false)
+      setBlockFrom(true)
       return
     }
   }
@@ -443,7 +443,7 @@ function Authentication() {
       <img src={IMAGE} className="content-image"></img>
       <div className="content-form" style={LANGUAGES.fontFamily[language]}>
         <div className="block-blur"></div>
-        <div className="block-form" id='block-form'>
+        <div className="block-form" style={blockFrom ? {display: "block"} : {display: "none"}}>
           <div className="content-mini-menu">
             <FontAwesomeIcon icon={faArrowLeft} className='fa-content-mini-menu' onClick={switchFormStyle} />
             <h1>{dataSwitchSignInUp[stateSwitchForm].header}</h1>
