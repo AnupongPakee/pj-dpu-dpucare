@@ -399,7 +399,7 @@ function Authentication() {
     startCountdown()
     forgotPass(verify.verify_tk, verify.verification_code, data)
       .then(_ => {
-        navigate("/authentication")
+        setStateForgotPass(false);
         return;
       })
       .catch(err => {
