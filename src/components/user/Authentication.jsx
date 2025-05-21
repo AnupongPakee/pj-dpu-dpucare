@@ -400,6 +400,7 @@ function Authentication() {
     forgotPass(verify.verify_tk, verify.verification_code, data)
       .then(_ => {
         setStateForgotPass(false);
+        setBlockFrom(true)
         return;
       })
       .catch(err => {
