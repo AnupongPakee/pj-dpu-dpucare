@@ -35,7 +35,7 @@ function App() {
   const [currentSongIndex, setCurrentSongIndex] = useState(0);
   const [statePlay, setStatePlay] = useState(false)
   const [warn, setWarn] = useState(false)
-  const [limit, setLimit] = useState(3);
+  const [limit, setLimit] = useState(10);
   const [count, setCount] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
   const [isActive, setIsActive] = useState(false);
@@ -93,6 +93,7 @@ function App() {
   const messageEndRef = useRef(null);
   const navigate = useNavigate()
   const dateTime = new Date()
+  const timesmp = Date()
 
   const message_title = [
     LANGUAGES.messages[language].messgaesInto["1"],
@@ -118,33 +119,31 @@ function App() {
     }
     testConnect()
       .then(_ => {
-        if (dateTime.getHours() == 23) {
-          deleteSectionNonUser(current_uuid_ls)
-            .then(_ => {
-              return;
+        deleteSectionNonUser(current_uuid_ls)
+          .then(_ => {
+            return;
+          })
+          .catch(err => {
+            console.log(err);
+            setToast({
+              show: true,
+              text: LANGUAGES.messages[language].error.mainerror,
+              duration: 10000,
+              status: "error",
+              showIcon: true,
+              icon: faFlag,
+              flag: true,
+              report: {
+                "user_id": data.user_id,
+                "timestamp": timesmp,
+                "title": err.response.statusText,
+                "description": err.stack,
+                "status": err.status
+              }
             })
-            .catch(err => {
-              console.log(err);
-              setToast({
-                show: true,
-                text: LANGUAGES.messages[language].error.mainerror,
-                duration: 10000,
-                status: "error",
-                showIcon: true,
-                icon: faFlag,
-                flag: true,
-                report: {
-                  "user_id": data.user_id,
-                  "timestamp": err.response.headers.date,
-                  "title": err.response.statusText,
-                  "description": err.stack,
-                  "status": err.status
-                }
-              })
-              handleTime(10500)
-              return;
-            })
-        }
+            handleTime(10500)
+            return;
+          })
         if (status_ls == "login") {
           getUser()
             .then(res => {
@@ -165,7 +164,7 @@ function App() {
                 flag: true,
                 report: {
                   "user_id": data.user_id,
-                  "timestamp": err.response.headers.date,
+                  "timestamp": timesmp,
                   "title": err.response.statusText,
                   "description": err.stack,
                   "status": err.status
@@ -221,7 +220,7 @@ function App() {
   useEffect(() => {
     scrollToBottom()
     return;
-  }, [messages])
+  }, [messages, messageMode])
 
   useEffect(() => {
     setInterval(() => setTime(new Date()), 1000)
@@ -423,7 +422,7 @@ function App() {
           flag: true,
           report: {
             "user_id": data.user_id,
-            "timestamp": err.response.headers.date,
+            "timestamp": timesmp,
             "title": err.response.statusText,
             "description": err.stack,
             "status": err.status
@@ -452,7 +451,7 @@ function App() {
           flag: true,
           report: {
             "user_id": data.user_id,
-            "timestamp": err.response.headers.date,
+            "timestamp": timesmp,
             "title": err.response.statusText,
             "description": err.stack,
             "status": err.status
@@ -494,7 +493,7 @@ function App() {
           flag: true,
           report: {
             "user_id": data.user_id,
-            "timestamp": err.response.headers.date,
+            "timestamp": timesmp,
             "title": err.response.statusText,
             "description": err.stack,
             "status": err.status
@@ -526,7 +525,7 @@ function App() {
           flag: true,
           report: {
             "user_id": data.user_id,
-            "timestamp": err.response.headers.date,
+            "timestamp": timesmp,
             "title": err.response.statusText,
             "description": err.stack,
             "status": err.status
@@ -580,7 +579,7 @@ function App() {
             flag: true,
             report: {
               "user_id": data.user_id,
-              "timestamp": err.response.headers.date,
+              "timestamp": timesmp,
               "title": err.response.statusText,
               "description": err.stack,
               "status": err.status
@@ -617,7 +616,7 @@ function App() {
               flag: true,
               report: {
                 "user_id": data.user_id,
-                "timestamp": err.response.headers.date,
+                "timestamp": timesmp,
                 "title": err.response.statusText,
                 "description": err.stack,
                 "status": err.status
@@ -655,7 +654,7 @@ function App() {
               flag: true,
               report: {
                 "user_id": data.user_id,
-                "timestamp": err.response.headers.date,
+                "timestamp": timesmp,
                 "title": err.response.statusText,
                 "description": err.stack,
                 "status": err.status
@@ -697,7 +696,7 @@ function App() {
           flag: true,
           report: {
             "user_id": data.user_id,
-            "timestamp": err.response.headers.date,
+            "timestamp": timesmp,
             "title": err.response.statusText,
             "description": err.stack,
             "status": err.status
@@ -733,7 +732,7 @@ function App() {
           flag: true,
           report: {
             "user_id": data.user_id,
-            "timestamp": err.response.headers.date,
+            "timestamp": timesmp,
             "title": err.response.statusText,
             "description": err.stack,
             "status": err.status
@@ -770,7 +769,7 @@ function App() {
               flag: true,
               report: {
                 "user_id": data.user_id,
-                "timestamp": err.response.headers.date,
+                "timestamp": timesmp,
                 "title": err.response.statusText,
                 "description": err.stack,
                 "status": err.status
@@ -792,7 +791,7 @@ function App() {
           flag: true,
           report: {
             "user_id": data.user_id,
-            "timestamp": err.response.headers.date,
+            "timestamp": timesmp,
             "title": err.response.statusText,
             "description": err.stack,
             "status": err.status
@@ -878,7 +877,7 @@ function App() {
     <div className='app' style={THEMES[theme].background}>
       <div className="block-blur"></div>
       <div className="animetion-start" style={intoAnimetion ? { display: "none" } : THEMES[theme].background}>
-      <button className='skip' onClick={() => setIntoAnimetion(true)} >{LANGUAGES.messages[language].skip}</button>
+        <button className='skip' onClick={() => { setIntoAnimetion(true); localStorage.setItem("intoAnimetion", true) }} >{LANGUAGES.messages[language].skip}</button>
         <h1 style={LANGUAGES.fontFamily.th} key={index}>{message_title[index]}</h1>
       </div>
       <div className="content-app" style={LANGUAGES.fontFamily[language]}>
@@ -922,8 +921,8 @@ function App() {
             ) : (
               <div className="menu-mode">
                 <select name="mode" id="mode" defaultValue={stateMode} onChange={e => selectMode(e.target.value)}>
-                  <option value="advice">🌱 {LANGUAGES.messages[language].advice}</option>
-                  <option value="just_venting">🤍 {LANGUAGES.messages[language].justventing}</option>
+                  <option style={THEMES[theme].background} value="advice">🌱 {LANGUAGES.messages[language].advice}</option>
+                  <option style={THEMES[theme].background} value="just_venting">🤍 {LANGUAGES.messages[language].justventing}</option>
                 </select>
                 <div className="mini-menu">
                   {mode_ls == "just_venting" ? <FontAwesomeIcon icon={faTrash} className='fa-mini' onClick={() => delete_section_just_venting()} /> : null}
@@ -936,17 +935,16 @@ function App() {
               <div className="chat">
                 <div className="show-message">
                   <div className="ai-message">
-                    <h1>{LANGUAGES.messages[language].firstchat}</h1>
+                    <pre>{LANGUAGES.messages[language].firstchat}</pre>
                   </div>
                   {messages.map((item, idx) => {
-                    const isLast = idx === messages.length - 1;
                     return (
                       <div key={idx}>
                         <div className="human-message">
                           <h1>{item.question}</h1>
                         </div>
                         <div className="ai-message">
-                          <h1 style={isActive && isLast ? THEMES[theme].loader : null} >{formatBold(item.answer)}</h1>
+                          <pre>{formatBold(item.answer)}</pre>
                         </div>
                       </div>
                     )
@@ -955,12 +953,12 @@ function App() {
                 </div>
                 <div className="input">
                   <div className="input-user">
-                    <form onSubmit={handleChatbot}>
+                    <form style={isActive ? THEMES[theme].loader : null} onSubmit={handleChatbot}>
                       <input type="text" name='question' id='question' placeholder={LANGUAGES.messages[language].maininput} onChange={e => setQuestion(e.target.value)} required disabled={isActive} />
                       {isRunning ? formatNumber(count) : <FontAwesomeIcon icon={faPaperPlane} className='fa-input-user' onClick={handleChatbot} />}
                     </form>
+                    <p>{LANGUAGES.messages[language].warndpu}</p>
                   </div>
-                  <p>{LANGUAGES.messages[language].warndpu}</p>
                 </div>
               </div>
             ) : (
@@ -974,7 +972,7 @@ function App() {
                           <h1>{item.question}</h1>
                         </div>
                         <div className="ai-message" style={item.answer == "" ? { display: "none" } : { display: "block" }}>
-                          <h1>{formatBold(item.answer)}</h1>
+                          <pre>{formatBold(item.answer)}</pre>
                         </div>
                       </div>
                     )
@@ -983,12 +981,12 @@ function App() {
                 </div>
                 <div className="input">
                   <div className="input-user">
-                    <form onSubmit={handleChatbotV2}>
+                    <form style={isActive ? THEMES[theme].loader : null} onSubmit={handleChatbotV2}>
                       <input type="text" name='question' id='questionv2' placeholder={LANGUAGES.messages[language].secondinput} onChange={e => setQuestion(e.target.value)} required disabled={isActive} />
                       {isRunning ? count : <FontAwesomeIcon icon={faPaperPlane} className='fa-input-user' />}
                     </form>
+                    <p>{LANGUAGES.messages[language].warndpu}</p>
                   </div>
-                  <p>{LANGUAGES.messages[language].warndpu}</p>
                 </div>
                 <div className="warn-mode" style={warn_mode_ls ? { display: "none" } : { display: "flex" }}>
                   <div className="content-warn-mode">

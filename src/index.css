@@ -210,6 +210,10 @@ select:-webkit-autofill:focus {
     animation: fadeIn 4s;
   }
 
+  .app .content-app .chatbot .chat .show-message {
+    height: auto;
+  }
+
   .app .content-app .aboutus {
     display: none;
     position: relative;
@@ -410,6 +414,10 @@ select:-webkit-autofill:focus {
     grid-row: 2 / 4 span;
     background-color: rgba(0, 0, 0, 0.25);
     border-radius: 2rem;
+  }
+
+  .app .content-app .chatbot .chat .show-message {
+    height: 85%;
   }
 
   .app .content-app .setting {

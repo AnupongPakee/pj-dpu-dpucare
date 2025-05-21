@@ -104,6 +104,7 @@ const Admin = () => {
 
   const audioRef = useRef(null);
   const messageEndRef = useRef(null);
+  const timesmp = Date()
   const navigate = useNavigate()
 
   const songs = [
@@ -150,7 +151,7 @@ const Admin = () => {
                 flag: true,
                 report: {
                   "user_id": "admin",
-                  "timestamp": err.response.headers.date,
+                  "timestamp": timesmp,
                   "title": err.response.statusText,
                   "description": err.stack,
                   "status": err.status
@@ -207,7 +208,7 @@ const Admin = () => {
   useEffect(() => {
     scrollToBottom()
     return;
-  }, [messages])
+  }, [messages, messageMode])
 
   useEffect(() => {
     let timer;
@@ -361,7 +362,7 @@ const Admin = () => {
           flag: true,
           report: {
             "user_id": "admin",
-            "timestamp": err.response.headers.date,
+            "timestamp": timesmp,
             "title": err.response.statusText,
             "description": err.stack,
             "status": err.status
@@ -404,7 +405,7 @@ const Admin = () => {
           flag: true,
           report: {
             "user_id": "admin",
-            "timestamp": err.response.headers.date,
+            "timestamp": timesmp,
             "title": err.response.statusText,
             "description": err.stack,
             "status": err.status
@@ -433,7 +434,7 @@ const Admin = () => {
           flag: true,
           report: {
             "user_id": "admin",
-            "timestamp": err.response.headers.date,
+            "timestamp": timesmp,
             "title": err.response.statusText,
             "description": err.stack,
             "status": err.status
@@ -462,7 +463,7 @@ const Admin = () => {
           flag: true,
           report: {
             "user_id": "admin",
-            "timestamp": err.response.headers.date,
+            "timestamp": timesmp,
             "title": err.response.statusText,
             "description": err.stack,
             "status": err.status
@@ -522,7 +523,7 @@ const Admin = () => {
             flag: true,
             report: {
               "user_id": "admin",
-              "timestamp": err.response.headers.date,
+              "timestamp": timesmp,
               "title": err.response.statusText,
               "description": err.stack,
               "status": err.status
@@ -566,7 +567,7 @@ const Admin = () => {
             flag: true,
             report: {
               "user_id": "admin",
-              "timestamp": err.response.headers.date,
+              "timestamp": timesmp,
               "title": err.response.statusText,
               "description": err.stack,
               "status": err.status
@@ -580,8 +581,6 @@ const Admin = () => {
 
   const handleUpdatePrompt = e => {
     e.preventDefault()
-    // console.log(template);
-    
     if (current_template_ls == "prompt_template") {
       updateMainPrompt(data.user_id, template)
         .then(_ => {
@@ -601,7 +600,7 @@ const Admin = () => {
             flag: true,
             report: {
               "user_id": "admin",
-              "timestamp": err.response.headers.date,
+              "timestamp": timesmp,
               "title": err.response.statusText,
               "description": err.stack,
               "status": err.status
@@ -629,7 +628,7 @@ const Admin = () => {
             flag: true,
             report: {
               "user_id": "admin",
-              "timestamp": err.response.headers.date,
+              "timestamp": timesmp,
               "title": err.response.statusText,
               "description": err.stack,
               "status": err.status
@@ -657,7 +656,7 @@ const Admin = () => {
             flag: true,
             report: {
               "user_id": "admin",
-              "timestamp": err.response.headers.date,
+              "timestamp": timesmp,
               "title": err.response.statusText,
               "description": err.stack,
               "status": err.status
@@ -685,7 +684,7 @@ const Admin = () => {
             flag: true,
             report: {
               "user_id": "admin",
-              "timestamp": err.response.headers.date,
+              "timestamp": timesmp,
               "title": err.response.statusText,
               "description": err.stack,
               "status": err.status
@@ -699,9 +698,9 @@ const Admin = () => {
 
   const logOut = () => {
     logout()
-    .then(_ => {
-      deleteSectionNonUser(current_uuid_ls)
       .then(_ => {
+        deleteSectionNonUser(current_uuid_ls)
+          .then(_ => {
             setFirstMode(false)
             localStorage.removeItem("status_mode")
             localStorage.removeItem("mode")
@@ -725,7 +724,7 @@ const Admin = () => {
               flag: true,
               report: {
                 "user_id": "admin",
-                "timestamp": err.response.headers.date,
+                "timestamp": timesmp,
                 "title": err.response.statusText,
                 "description": err.stack,
                 "status": err.status
@@ -748,7 +747,7 @@ const Admin = () => {
           flag: true,
           report: {
             "user_id": "admin",
-            "timestamp": err.response.headers.date,
+            "timestamp": timesmp,
             "title": err.response.statusText,
             "description": err.stack,
             "status": err.status
@@ -881,8 +880,8 @@ const Admin = () => {
             ) : (
               <div className="menu-mode">
                 <select name="mode" id="mode" defaultValue={stateMode} onChange={e => selectMode(e.target.value)}>
-                  <option value="advice">🌱 {LANGUAGES.messages[language].advice}</option>
-                  <option value="just_venting">🤍 {LANGUAGES.messages[language].justventing}</option>
+                  <option style={THEMES[theme].background} value="advice">🌱 {LANGUAGES.messages[language].advice}</option>
+                  <option style={THEMES[theme].background} value="just_venting">🤍 {LANGUAGES.messages[language].justventing}</option>
                 </select>
                 <div className="mini-menu">
                   {mode_ls == "advice" ? null : <FontAwesomeIcon icon={faTrash} className='fa-mini' onClick={() => delete_section()} />}
@@ -894,17 +893,16 @@ const Admin = () => {
               <div className="chat">
                 <div className="show-message">
                   <div className="ai-message">
-                    <h1>{LANGUAGES.messages[language].firstchat}</h1>
+                    <pre>{LANGUAGES.messages[language].firstchat}</pre>
                   </div>
                   {messages.map((item, idx) => {
-                    const isLast = idx === messages.length - 1;
                     return (
                       <div key={idx}>
                         <div className="human-message">
                           <h1>{item.question}</h1>
                         </div>
                         <div className="ai-message">
-                          <h1 style={isActive && isLast ? THEMES[theme].loader : null} >{formatBold(item.answer)}</h1>
+                          <pre>{formatBold(item.answer)}</pre>
                         </div>
                       </div>
                     )
@@ -913,12 +911,12 @@ const Admin = () => {
                 </div>
                 <div className="input">
                   <div className="input-user">
-                    <form onSubmit={handleChatbot}>
+                    <form style={isActive ? THEMES[theme].loader : null} onSubmit={handleChatbot}>
                       <input type="text" name='question' id='question' placeholder={LANGUAGES.messages[language].maininput} onChange={e => setQuestion(e.target.value)} required disabled={isActive} />
                       {isRunning ? count : <FontAwesomeIcon icon={faPaperPlane} className='fa-input-user' onClick={handleChatbot} />}
                     </form>
+                    <p>{LANGUAGES.messages[language].warndpu}</p>
                   </div>
-                  <p>{LANGUAGES.messages[language].warndpu}</p>
                 </div>
               </div>
             ) : (
@@ -932,7 +930,7 @@ const Admin = () => {
                           <h1>{item.question}</h1>
                         </div>
                         <div className="ai-message" style={item.answer == "" ? { display: "none" } : { display: "block" }}>
-                          <h1>{formatBold(item.answer)}</h1>
+                          <pre>{formatBold(item.answer)}</pre>
                         </div>
                       </div>
                     )
@@ -941,12 +939,12 @@ const Admin = () => {
                 </div>
                 <div className="input">
                   <div className="input-user">
-                    <form onSubmit={handleChatbot}>
+                    <form style={isActive && isLast ? THEMES[theme].loader : null} onSubmit={handleChatbot}>
                       <input type="text" name='question' id='questionv2' placeholder={LANGUAGES.messages[language].secondinput} onChange={e => setQuestion(e.target.value)} required disabled={isActive} />
                       {isRunning ? count : <FontAwesomeIcon icon={faPaperPlane} className='fa-input-user' />}
                     </form>
+                    <p>{LANGUAGES.messages[language].warndpu}</p>
                   </div>
-                  <p>{LANGUAGES.messages[language].warndpu}</p>
                 </div>
                 <div className="warn-mode" style={warn_mode_ls ? { display: "none" } : { display: "flex" }}>
                   <div className="content-warn-mode">
@@ -984,10 +982,10 @@ const Admin = () => {
                 <FontAwesomeIcon icon={faExpand} style={{ cursor: "pointer" }} onClick={() => setFullPrompt(true)} />
               </div>
               <select defaultValue={currentTemplate} onChange={e => selectTemplate(e.target.value)}>
-                <option value="prompt_template">Advice Template (Main)</option>
-                <option value="prompt_template_just_venting">Just Venting Template (Main)</option>
-                <option value="prompt_template_test">Advice Template (Test)</option>
-                <option value="prompt_template_just_venting_test">Just Venting Template (Test)</option>
+                <option style={THEMES[theme].background} value="prompt_template">Advice Template (Main)</option>
+                <option style={THEMES[theme].background} value="prompt_template_just_venting">Just Venting Template (Main)</option>
+                <option style={THEMES[theme].background} value="prompt_template_test">Advice Template (Test)</option>
+                <option style={THEMES[theme].background} value="prompt_template_just_venting_test">Just Venting Template (Test)</option>
               </select>
             </div>
           </div>
@@ -1099,16 +1097,16 @@ const Admin = () => {
                 <h1>Template</h1>
               </div>
             </div>
-            <div className="main-template" style={current_template_ls == "prompt_template" ? { backgroundColor: "rgba(0, 0, 0, 0.4)" } : null} onClick={() => {selectTemplate("prompt_template"); setCurrentSettingPrompt({ main: true, secondery: false, test_main: false, test_secondery: false })}}>
+            <div className="main-template" style={current_template_ls == "prompt_template" ? { backgroundColor: "rgba(0, 0, 0, 0.4)" } : null} onClick={() => { selectTemplate("prompt_template"); setCurrentSettingPrompt({ main: true, secondery: false, test_main: false, test_secondery: false }) }}>
               <h1>(main) advice template</h1>
             </div>
-            <div className="secondery-template" style={current_template_ls == "prompt_template_just_venting" ? { backgroundColor: "rgba(0, 0, 0, 0.4)" } : null} onClick={() => {selectTemplate("prompt_template_just_venting"); setCurrentSettingPrompt({ main: false, secondery: true, test_main: false, test_secondery: false })}}>
+            <div className="secondery-template" style={current_template_ls == "prompt_template_just_venting" ? { backgroundColor: "rgba(0, 0, 0, 0.4)" } : null} onClick={() => { selectTemplate("prompt_template_just_venting"); setCurrentSettingPrompt({ main: false, secondery: true, test_main: false, test_secondery: false }) }}>
               <h1>(main) just venting template</h1>
             </div>
-            <div className="test-main" style={current_template_ls == "prompt_template_test" ? { backgroundColor: "rgba(0, 0, 0, 0.4)" } : null} onClick={() => {selectTemplate("prompt_template_test"); setCurrentSettingPrompt({ main: false, secondery: false, test_main: true, test_secondery: false })}}>
+            <div className="test-main" style={current_template_ls == "prompt_template_test" ? { backgroundColor: "rgba(0, 0, 0, 0.4)" } : null} onClick={() => { selectTemplate("prompt_template_test"); setCurrentSettingPrompt({ main: false, secondery: false, test_main: true, test_secondery: false }) }}>
               <h1>(test) advice template</h1>
             </div>
-            <div className="test-secondery" style={current_template_ls == "prompt_template_just_venting_test" ? { backgroundColor: "rgba(0, 0, 0, 0.4)" } : null} onClick={() => {selectTemplate("prompt_template_just_venting_test"); setCurrentSettingPrompt({ main: false, secondery: false, test_main: false, test_secondery: true })}}>
+            <div className="test-secondery" style={current_template_ls == "prompt_template_just_venting_test" ? { backgroundColor: "rgba(0, 0, 0, 0.4)" } : null} onClick={() => { selectTemplate("prompt_template_just_venting_test"); setCurrentSettingPrompt({ main: false, secondery: false, test_main: false, test_secondery: true }) }}>
               <h1>(test) just venting template</h1>
             </div>
             <div className="empty-prompt">

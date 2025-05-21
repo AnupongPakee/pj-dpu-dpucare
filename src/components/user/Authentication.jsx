@@ -40,6 +40,7 @@ function Authentication() {
   })
 
   const navigate = useNavigate()
+  const timesmp = Date()
 
   const theme_ls = localStorage.getItem("theme")
   const language_ls = localStorage.getItem("language")
@@ -186,7 +187,7 @@ function Authentication() {
           flag: true,
           report: {
             "user_id": "view",
-            "timestamp": err.response.headers.date,
+            "timestamp": timesmp,
             "title": err.response.statusText,
             "description": err.stack,
             "status": err.status
@@ -241,7 +242,7 @@ function Authentication() {
           flag: true,
           report: {
             "user_id": "view",
-            "timestamp": err.response.headers.date,
+            "timestamp": timesmp,
             "title": err.response.statusText,
             "description": err.stack,
             "status": err.status
@@ -296,7 +297,7 @@ function Authentication() {
             flag: true,
             report: {
               "user_id": "view",
-              "timestamp": err.response.headers.date,
+              "timestamp": timesmp,
               "title": err.response.statusText,
               "description": err.stack,
               "status": err.status
@@ -336,7 +337,7 @@ function Authentication() {
               flag: true,
               report: {
                 "user_id": "view",
-                "timestamp": err.response.headers.date,
+                "timestamp": timesmp,
                 "title": err.response.statusText,
                 "description": err.stack,
                 "status": err.status
@@ -381,7 +382,7 @@ function Authentication() {
             flag: true,
             report: {
               "user_id": "view",
-              "timestamp": err.response.headers.date,
+              "timestamp": timesmp,
               "title": err.response.statusText,
               "description": err.stack,
               "status": err.status
@@ -426,7 +427,7 @@ function Authentication() {
             flag: true,
             report: {
               "user_id": "view",
-              "timestamp": err.response.headers.date,
+              "timestamp": timesmp,
               "title": err.response.statusText,
               "description": err.stack,
               "status": err.status

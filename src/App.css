@@ -106,7 +106,6 @@
 }
 
 .app .content-app .chatbot .menu-mode select option {
-    background-color: #3c1053;
     cursor: pointer;
 }
 
@@ -138,9 +137,15 @@
 }
 
 .app .content-app .chatbot .chat .show-message {
-    height: 90%;
+    max-height: 85%;
     overflow: scroll;
     overflow-x: hidden;
+}
+
+.app .content-app .chatbot .chat .show-message .line {
+    width: 90%;
+    height: 0.1rem;
+    background-color: white;
 }
 
 .app .content-app .chatbot .chat .show-message .empty-space {
@@ -148,17 +153,30 @@
 }
 
 .app .content-app .chatbot .chat .show-message .ai-message {
-    padding: 1.6rem;
+    max-width: 90%;
+    padding: 1rem 0;
+    margin: 1rem 0;
+    margin-left: 1.6rem;
+    overflow: auto;
 }
 
-.app .content-app .chatbot .chat .show-message .ai-message h1 {
+.app .content-app .chatbot .chat .show-message .ai-message::-webkit-scrollbar {
+    height: 0.2rem;
+}
+
+.app .content-app .chatbot .chat .show-message .ai-message::-webkit-scrollbar-track {
+    background: none;
+}
+
+.app .content-app .chatbot .chat .show-message .ai-message::-webkit-scrollbar-thumb {
+    background-color: white;
+    border-radius: 2rem;
+}
+
+.app .content-app .chatbot .chat .show-message .ai-message pre {
     display: inline-block;
-    max-width: 90%;
-    padding: 0.6rem;
     font-weight: 400;
     letter-spacing: 1px;
-    border: 1px solid white;
-    border-radius: 0 2rem 2rem 2rem;
 }
 
 .app .content-app .chatbot .chat .show-message .human-message {
@@ -167,6 +185,7 @@
 }
 
 .app .content-app .chatbot .chat .show-message .human-message h1 {
+    text-align: start;
     display: inline-block;
     max-width: 90%;
     padding: 0.6rem;
@@ -184,6 +203,7 @@
 
 .app .content-app .chatbot .chat .show-message .human-message-mode-2 h1 {
     display: inline-block;
+    text-align: start;
     max-width: 90%;
     margin-bottom: 1.6rem;
     padding: 0.6rem;
@@ -199,16 +219,21 @@
 }
 
 .app .content-app .chatbot .chat .input {
-    height: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 15%;
 }
 
 .app .content-app .chatbot .chat .input .input-user {
+    width: 100%;
     padding: 0 1.6rem;
 }
 
 .app .content-app .chatbot .chat .input .input-user form {
     display: flex;
     align-items: center;
+    width: 100%;
     padding-right: 1rem;
     border: 1px solid white;
     border-radius: 2rem;

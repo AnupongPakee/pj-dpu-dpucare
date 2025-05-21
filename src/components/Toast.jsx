@@ -55,9 +55,9 @@ const Toast = (props) => {
     const handleCheck = check => {
         if (check) {
             createRport(report)
-                .then(res => {
-                    setHidden(true)
+            .then(res => {
                     setChangeMessage(true)
+                    setHidden(true)
                     console.log(res)
                     return;
                 })
