@@ -938,7 +938,7 @@ const Admin = () => {
                 <div className="mini-menu">
                   {mode_ls == "advice" ? null : <FontAwesomeIcon icon={faTrash} className='fa-mini' onClick={() => delete_section()} />}
                   <FontAwesomeIcon icon={faTrash} className='fa-mini' style={mode_ls == "advice" ? { display: "block" } : { display: "none" }} onClick={() => delete_section()} />
-                  <FontAwesomeIcon style={platform == "phone" && mode_ls == "just_venting" ? { display: "none" } : { display: "block" }} icon={faExpand} className='fa-mini' onClick={() => showOnOffChatHistory(platform)} />
+                  <FontAwesomeIcon style={platform == "phone" ? { display: "none" } : { display: "block" }} icon={faExpand} className='fa-mini' onClick={() => showOnOffChatHistory(platform)} />
                 </div>
               </div>
             )}
@@ -954,7 +954,7 @@ const Admin = () => {
                         <div className="human-message" style={item.question == "" ? { display: "none" } : { display: "block" }}>
                           <h1>{item.question}</h1>
                         </div>
-                        <div className="ai-message" style={item.answer == "" ? { display: "none" } : { display: "block" }}>
+                        <div className="ai-message">
                           <pre>{formatBold(item.answer)}</pre>
                         </div>
                       </div>
@@ -980,9 +980,9 @@ const Admin = () => {
                     return (
                       <div key={idx}>
                         <div className="human-message-mode-2" style={item.question == "" ? { display: "none" } : { display: "block" }}>
-                          <h1 style={item.question == "" ? { display: "none" } : { display: "block" }} >{item.question}</h1>
+                          <h1>{item.question}</h1>
                         </div>
-                        <div className="ai-message" style={item.answer == "" ? { display: "none" } : { display: "block" }}>
+                        <div className="ai-message" style={item.answer == "" | "ค่าว่าง" ? { display: "none" } : { display: "block" }}>
                           <pre>{formatBold(item.answer)}</pre>
                         </div>
                       </div>
@@ -993,7 +993,7 @@ const Admin = () => {
                 <div className="input">
                   <div className="input-user">
                     <form style={isActive ? THEMES[theme].loader : null} onSubmit={handleChatbot}>
-                      <input type="text" name='question' id='questionv2' placeholder={LANGUAGES.messages[language].secondinput} onChange={e => setQuestion(e.target.value)} required disabled={isActive} />
+                      <input type="text" name='question' id='questionv2' placeholder={LANGUAGES.messages[language].secondinput} onChange={e => setQuestion(e.target.value)} required />
                       {isRunning ? count : <FontAwesomeIcon icon={faPaperPlane} className='fa-input-user' />}
                     </form>
                     <p>{LANGUAGES.messages[language].warndpu}</p>
