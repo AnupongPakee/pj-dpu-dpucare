@@ -124,26 +124,56 @@ export const testChatbot = async (id, section_id, data) => {
     })
 }
 
-export const updateMainPrompt = async (id, data) => {
-    await axios.put("https://server-dp.onrender.com/update-prompt-template/" + id, data, {
+export const getSectionTemplate = async () => {
+    return await axios.get("https://server-dp.onrender.com/section-template", {
         withCredentials: true
     })
 }
 
-export const updateMainPromptJV = async (id, data) => {
-    await axios.put("https://server-dp.onrender.com/update-prompt-justventing/" + id, data, {
+export const getVersion = async id => {
+    return await axios.get("https://server-dp.onrender.com/history-template/" + id, {
         withCredentials: true
     })
 }
 
-export const updateMainPromptTS = async (id, data) => {
-    await axios.put("https://server-dp.onrender.com/update-prompt-template-test/" + id, data, {
+export const updateTemplate = async (id, data) => {
+    await axios.put("https://server-dp.onrender.com/history-template/" + id, data, {
         withCredentials: true
     })
 }
 
-export const updateMainPromptJVTS = async (id, data) => {
-    await axios.put("https://server-dp.onrender.com/update-prompt-justventing-test/" + id, data, {
+export const createHistoryTemplate = async (id, data) => {
+    await axios.post("https://server-dp.onrender.com/history-template/" + id, data, {
+        withCredentials: true
+    })
+}
+
+export const createSectionTemplate = async data => {
+    await axios.post("https://server-dp.onrender.com/section-template", data, {
+        withCredentials: true
+    })
+}
+
+export const updateSelectMain = async (id, data) => {
+    await axios.put("https://server-dp.onrender.com/select-main-template/" + id, data, {
+        withCredentials: true
+    })
+}
+
+export const updateSelectSecondery = async (id, data) => {
+    await axios.put("https://server-dp.onrender.com/select-secondry-template/" + id, data, {
+        withCredentials: true
+    })
+}
+
+export const deleteHistoryTemplate = async id => {
+    await axios.delete("https://server-dp.onrender.com/history-template/" + id, {
+        withCredentials: true
+    })
+}
+
+export const deleteSectionTemplate = async id => {
+    await axios.delete("https://server-dp.onrender.com/section-template/" + id, {
         withCredentials: true
     })
 }

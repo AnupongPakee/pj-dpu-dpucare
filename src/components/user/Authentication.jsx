@@ -168,6 +168,7 @@ function Authentication() {
       },
       body: JSON.stringify({ token: res.access_token })
     })
+      .then(res => res.json())
       .then(_ => {
         localStorage.setItem("status", "login")
         navigate("/")

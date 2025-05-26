@@ -878,7 +878,7 @@ function App() {
       <div className="block-blur"></div>
       <div className="animetion-start" style={intoAnimetion ? { display: "none" } : THEMES[theme].background}>
         <button className='skip' onClick={() => { setIntoAnimetion(true); localStorage.setItem("intoAnimetion", true) }} >{LANGUAGES.messages[language].skip}</button>
-        <h1 style={LANGUAGES.fontFamily.th} key={index}>{message_title[index]}</h1>
+        <h1 style={LANGUAGES.fontFamily[language]} key={index}>{message_title[index]}</h1>
       </div>
       <div className="content-app" style={LANGUAGES.fontFamily[language]}>
         <div className="date-time">

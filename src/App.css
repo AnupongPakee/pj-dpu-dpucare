@@ -1153,97 +1153,264 @@
     font-weight: 300 !important;
 }
 
-.admin .title-prompt-template {
+.admin .chat-history {
     position: relative;
-    height: 15%;
-    padding: 1rem 0.5rem;
+    justify-items: normal !important;
+    align-content: start !important;
 }
 
-.admin .title-prompt-template .text-select {
-    width: 100%;
+.admin .chat-history .icon-full-selc {
+    position: absolute;
+    top: 0.6rem;
+    right: 1rem;
+    cursor: pointer;
+    z-index: 10;
 }
 
-.admin .title-prompt-template .text {
+.admin .chat-history .content-prompt-template {
+    position: relative;
+    height: 100%;
+}
+
+.admin .chat-history .h1-prompt {
+    position: absolute;
+    top: 0.4rem;
+    left: 1rem;
+    text-transform: uppercase;
+    font-size: 0.6rem;
+    font-weight: 300 !important;
+}
+
+.admin .chat-history .nav-option {
+    height: 20%;
+}
+
+.admin .chat-history .nav-option .empty {
+    height: 30%;
+}
+
+.admin .chat-history .nav-option .block-select {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    padding: 0 0.6rem;
+    height: 50%;
 }
 
-.admin .title-prompt-template select {
-    padding-top: 0.6rem;
+.admin .chat-history .nav-option .select-prompt {
+    position: relative;
+    max-width: 40%;
+    padding: 0.6rem;
+    margin-right: 1rem;
+    height: 70%;
+    border: 1px solid white;
+    border-radius: 2rem;
+    cursor: pointer;
+    transition: all 0.4s ease-in-out;
+    z-index: 10;
+}
+
+.admin .chat-history .nav-option .select-prompt:hover {
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.admin .chat-history .nav-option .select-prompt p {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.admin .chat-history .nav-option .select-prompt .full-select {
+    display: none;
+    max-width: 200%;
+    max-height: 750%;
+    margin-top: 1rem;
+    overflow: auto;
+    overflow-x: hidden;
+}
+
+.admin .chat-history .nav-option .select-prompt .full-select h1 {
+    position: relative;
+    padding: 0.5rem;
+    background-color: rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    transition: all 0.4s ease-in-out;
+    z-index: 20;
+    overflow: auto;
+    overflow-y: hidden;
+}
+
+.admin .chat-history .nav-option .select-prompt .full-select h1:hover {
+    background-color: rgba(0, 0, 0, 1);
+}
+
+.admin .chat-history .nav-option .select-version {
+    position: relative;
+    max-width: 40%;
+    padding: 0.6rem;
+    margin-right: 1rem;
+    height: 70%;
+    border: 1px solid white;
+    border-radius: 2rem;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.4s ease-in-out;
+}
+
+.admin .chat-history .nav-option .select-version:hover {
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.admin .chat-history .nav-option .select-version p {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.admin .chat-history .nav-option .select-version .full-version {
+    position: relative;
+    display: none;
+    max-width: 200%;
+    max-height: 750%;
+    margin-top: 1rem;
+    overflow: auto;
+    overflow-x: hidden;
+    z-index: 20;
+}
+
+.admin .chat-history .nav-option .select-version .full-version h1 {
+    padding: 0.5rem;
+    background-color: rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    overflow: auto;
+    overflow-y: hidden;
+    transition: all 0.4s ease-in-out;
+}
+
+.admin .chat-history .nav-option .select-version .full-version h1:hover {
+    background-color: rgba(0, 0, 0, 1);
+}
+
+.admin .chat-history .nav-option .select-version .full-version .blur {
+    background-color: aliceblue;
     width: 100%;
-    color: white;
+    height: 100%;
+}
+
+.admin .chat-history .nav-option .select-template {
     background: none;
-    border: none;
-    outline: none;
+    color: white;
+    padding: 0.4rem;
+    border: 1px solid white;
+    border-radius: 2rem;
     cursor: pointer;
+    transition: all 0.4s ease-in-out;
 }
 
-.admin .title-prompt-template select option {
-    background-color: #3c1053;
-    cursor: pointer;
-}
-
-.admin .title-prompt-template select option:hover {
+.admin .chat-history .nav-option .select-template:hover {
     background-color: rgba(0, 0, 0, 0.4);
 }
 
 .admin .chat-history form {
-    width: 100%;
-    height: 100%;
+    position: relative;
+    height: 80%;
 }
 
-.admin .prompt-template {
-    padding: 0.6rem;
+.admin .chat-history form textarea {
     width: 100%;
-    height: 75%;
-}
-
-.admin .prompt-template textarea {
-    width: 100%;
-    height: 100%;
+    height: 90%;
     padding: 1rem;
     background: none;
     color: white;
-    font-weight: 400;
-    letter-spacing: 1px;
-    border: 1px solid white;
     outline: none;
-    border-radius: 2rem;
-    resize: none;
+    border: 1px solid white;
 }
 
-.admin .prompt-template textarea::-webkit-scrollbar {
-    display: none;
-}
-
-.admin .prompt-template textarea::placeholder {
+.admin .chat-history form textarea::placeholder {
     color: white;
 }
 
-.admin .btn-save-cancel-template {
-    width: 90%;
-    justify-content: end;
-    display: flex;
-    height: 7%;
+.admin .chat-history form .btn-s-c {
+    position: absolute;
+    right: 0.6rem;
+    bottom: 0.6rem;
 }
 
-.admin .btn-save-cancel-template button {
-    padding: 0.2rem 0.4rem;
+.admin .chat-history form .btn-s-c button {
+    background: none;
+    font-size: 0.6rem;
+    margin-left: 0.6rem;
+    padding: 0.2rem;
+    color: white;
+    border: 1px solid white;
+    border-radius: 2rem;
+    cursor: pointer;
+    transition: all 0.4s ease-in-out;
+}
+
+.admin .chat-history form .btn-s-c button:hover {
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.admin .chat-history .new-section-tem {
+    position: absolute;
+    top: 0;
+    left: 0;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(1rem);
+    z-index: 10;
+}
+
+.admin .chat-history .new-section-tem form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 50%;
+}
+
+.admin .chat-history .new-section-tem form input {
     background: none;
     color: white;
+    padding: 0.4rem;
     border: 1px solid white;
     border-radius: 2rem;
-    transition: all 0.4s ease-in-out;
+}
+
+.admin .chat-history .new-section-tem form input::placeholder {
+    color: white;
+}
+
+.admin .chat-history .select-template-in {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 1rem;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(1rem);
+    z-index: 10;
+}
+
+.admin .chat-history .select-template-in .text {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+.admin .chat-history .select-template-in button {
+    background: none;
+    color: white;
+    padding: 0.4rem;
+    border: 1px solid white;
+    border-radius: 2rem;
+    margin-bottom: 1rem;
     cursor: pointer;
-}
-
-.admin .btn-save-cancel-template button:hover {
-    scale: 1.2;
-}
-
-.admin .btn-save-cancel-template button:nth-child(1) {
-    margin-right: 1rem;
 }
 
 .admin .app-moblie .block-report {
@@ -1269,214 +1436,6 @@
     height: 100%;
     backdrop-filter: blur(1rem);
     z-index: 20;
-}
-
-.admin .setting-full-prompt .content-setting-full-prompt {
-    display: flex;
-    width: 100%;
-    height: 100%;
-    color: white;
-}
-
-.admin .setting-full-prompt .content-setting-full-prompt .nav-menu-left-prompt {
-    width: 30% !important;
-    border-right: 2px solid white;
-    transition: all 0.4s ease-in-out;
-}
-
-.admin .setting-full-prompt .content-setting-full-prompt .nav-menu-left-prompt .fa-icon-setting {
-    padding-left: 1rem;
-}
-
-.admin .setting-full-prompt .content-setting-full-prompt .nav-menu-left-prompt .fa-icon-setting:hover {
-    scale: 1.2;
-}
-
-.admin .setting-full-prompt .content-setting-full-prompt .nav-menu-left-prompt .title-menu-prompt {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 10%;
-    background-color: rgba(0, 0, 0, 0.5);
-    cursor: pointer;
-    overflow: hidden;
-}
-
-.admin .setting-full-prompt .content-setting-full-prompt .nav-menu-left-prompt .title-menu-prompt .title-prompt {
-    display: flex;
-    align-items: center;
-}
-
-.admin .setting-full-prompt .content-setting-full-prompt .nav-menu-left-prompt h1 {
-    padding-left: 1rem;
-    font-size: 0.8rem;
-    font-weight: 400;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-}
-
-.admin .setting-full-prompt .content-setting-full-prompt .nav-menu-left-prompt .main-template {
-    display: flex;
-    align-items: center;
-    height: 10%;
-    background-color: rgba(0, 0, 0, 0.25);
-    cursor: pointer;
-    transition: all 0.4s ease-in-out;
-    overflow: hidden;
-}
-
-.admin .setting-full-prompt .content-setting-full-prompt .nav-menu-left-prompt .main-template:hover {
-    background-color: rgba(0, 0, 0, 0.4);
-}
-
-.admin .setting-full-prompt .content-setting-full-prompt .nav-menu-left-prompt .secondery-template {
-    display: flex;
-    align-items: center;
-    height: 10%;
-    background-color: rgba(0, 0, 0, 0.25);
-    cursor: pointer;
-    transition: all 0.4s ease-in-out;
-    overflow: hidden;
-}
-
-.admin .setting-full-prompt .content-setting-full-prompt .nav-menu-left-prompt .secondery-template:hover {
-    background-color: rgba(0, 0, 0, 0.4);
-}
-
-.admin .setting-full-prompt .content-setting-full-prompt .nav-menu-left-prompt .test-main {
-    display: flex;
-    align-items: center;
-    height: 10%;
-    background-color: rgba(0, 0, 0, 0.25);
-    cursor: pointer;
-    transition: all 0.4s ease-in-out;
-    overflow: hidden;
-}
-
-.admin .setting-full-prompt .content-setting-full-prompt .nav-menu-left-prompt .test-main:hover {
-    background-color: rgba(0, 0, 0, 0.4);
-}
-
-.admin .setting-full-prompt .content-setting-full-prompt .nav-menu-left-prompt .test-secondery {
-    display: flex;
-    align-items: center;
-    height: 10%;
-    background-color: rgba(0, 0, 0, 0.25);
-    cursor: pointer;
-    transition: all 0.4s ease-in-out;
-    overflow: hidden;
-}
-
-.admin .setting-full-prompt .content-setting-full-prompt .nav-menu-left-prompt .test-secondery:hover {
-    background-color: rgba(0, 0, 0, 0.4);
-}
-
-.admin .setting-full-prompt .content-setting-full-prompt .nav-menu-left-prompt .empty-prompt {
-    align-content: end;
-    height: 50%;
-}
-
-.admin .setting-full-prompt .content-setting-full-prompt .nav-menu-left-prompt .empty-prompt .backward {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    height: 20%;
-    background-color: rgba(0, 0, 0, 0.25);
-    cursor: pointer;
-    transition: all 0.4s ease-in-out;
-    overflow: hidden;
-}
-
-.admin .setting-full-prompt .content-setting-full-prompt .nav-menu-left-prompt .empty-prompt .backward:hover {
-    background-color: rgba(0, 0, 0, 0.4);
-}
-
-.admin .setting-full-prompt .content-setting-full-prompt .content-menu-right-prompt {
-    padding: 1.6rem;
-    width: 70%;
-    overflow: hidden;
-}
-
-.admin .setting-full-prompt .content-setting-full-prompt .content-menu-right-prompt .theme-setting-right-prompt {
-    width: 100%;
-    height: 100%;
-}
-
-.admin .setting-full-prompt .content-setting-full-prompt .content-menu-right-prompt .template-main {
-    width: 100%;
-    height: 100%;
-}
-
-.admin .setting-full-prompt .content-setting-full-prompt .content-menu-right-prompt .template-secondery {
-    width: 100%;
-    height: 100%;
-}
-
-.admin .setting-full-prompt .content-setting-full-prompt .content-menu-right-prompt .template-test {
-    width: 100%;
-    height: 100%;
-}
-
-.admin .setting-full-prompt .content-setting-full-prompt .content-menu-right-prompt .template-test-secondery {
-    width: 100%;
-    height: 100%;
-}
-
-.admin .setting-full-prompt .content-setting-full-prompt .content-menu-right-prompt form {
-    width: 100%;
-    height: 100%;
-}
-
-.admin .setting-full-prompt .content-setting-full-prompt .content-menu-right-prompt .text {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    height: 10%;
-}
-
-.admin .setting-full-prompt .content-setting-full-prompt .content-menu-right-prompt .text h1 {
-    font-weight: 400;
-    letter-spacing: 1px;
-}
-
-.admin .setting-full-prompt .content-setting-full-prompt .content-menu-right-prompt .btn-save-cancel button {
-    padding: 0.4rem;
-    background: none;
-    color: white;
-    font-weight: 400;
-    border: 1px solid white;
-    border-radius: 2rem;
-    transition: all 0.4s ease-in-out;
-    cursor: pointer;
-}
-
-.admin .setting-full-prompt .content-setting-full-prompt .content-menu-right-prompt .btn-save-cancel button:nth-child(1) {
-    background-color: rgba(255, 0, 0, 0.3);
-    margin-right: 1rem;
-}
-
-.admin .setting-full-prompt .content-setting-full-prompt .content-menu-right-prompt .btn-save-cancel button:nth-child(1):hover {
-    background-color: rgba(255, 0, 0, 0.8);
-}
-
-.admin .setting-full-prompt .content-setting-full-prompt .content-menu-right-prompt .btn-save-cancel button:nth-child(2) {
-    background-color: rgba(173, 255, 47, 0.3);
-}
-
-.admin .setting-full-prompt .content-setting-full-prompt .content-menu-right-prompt .btn-save-cancel button:nth-child(2):hover {
-    background-color: rgba(173, 255, 47, 0.8);
-}
-
-.admin .setting-full-prompt .content-setting-full-prompt .content-menu-right-prompt textarea {
-    width: 100%;
-    height: 90%;
-    padding: 1rem;
-    background: none;
-    color: white;
-    border: 2px solid white;
-    border-radius: 2rem 0 0 0;
-    resize: none;
 }
 
 .admin .report {
@@ -1630,4 +1589,99 @@ td {
 
 .admin .report .content-report .details .pre-text {
     overflow: auto;
+}
+
+.admin .new-version {
+    position: absolute;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(1rem);
+    z-index: 20;
+}
+
+.admin .new-version .icon-exit-new-version {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    color: white;
+    cursor: pointer;
+}
+
+.admin .new-version form {
+    width: 90%;
+    height: 90%;
+    border: 2px solid white;
+    color: white;
+    box-shadow: black 0 0 1rem;
+    border-radius: 2rem;
+    overflow: hidden;
+}
+
+.admin .new-version form .btn-save-cel {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    height: 10%;
+}
+
+.admin .new-version form .btn-save-cel button {
+    background: none;
+    color: white;
+    border: 1px solid white;
+    margin-right: 1rem;
+    padding: 0.4rem;
+    border-radius: 2rem;
+    cursor: pointer;
+    transition: all 0.4s ease-in-out;
+}
+
+
+.admin .new-version form .btn-save-cel button:hover {
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.admin .new-version form .input-version {
+    height: 6%;
+    padding: 0 1rem;
+}
+
+.admin .new-version form .input-version input {
+    background: none;
+    padding: 0.4rem;
+    color: white;
+    border: none;
+    border-bottom: 1px solid white;
+    outline: none;
+}
+
+.admin .new-version form .input-version input::placeholder {
+    color: white;
+}
+
+.admin .new-version form .input-version-template {
+    display: flex;
+    align-items: start;
+    height: 84%;
+    padding: 1rem;
+}
+
+.admin .new-version form .input-version-template textarea {
+    max-width: 100%;
+    max-height: 100%;
+    width: 100%;
+    height: 100%;
+    background: none;
+    outline: none;
+    color: white;
+    border: 1px solid white;
+    padding: 1rem;
+}
+
+.admin .new-version form .input-version-template textarea::placeholder {
+    color: white;
 }
