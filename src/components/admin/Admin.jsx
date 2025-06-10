@@ -71,6 +71,7 @@ const Admin = () => {
   const [nameSec, setNameSec] = useState("")
   const [stateSelc, setStateSelc] = useState(false)
   const [stateFullSelc, setStateFullSelc] = useState(0)
+  const [stateFullTem, setStateFullTem] = useState(false)
   const [chatbotConfig, setChatbotConfig] = useState({
     total_tokens: 0,
     select_main: "",
@@ -107,6 +108,7 @@ const Admin = () => {
   const current_version_ls = localStorage.getItem("current_version")
   const current_history_tem_ls = localStorage.getItem("current_history_tem")
   const current_name_tem_ls = localStorage.getItem("current_name_tem")
+  const current_history_ls = localStorage.getItem("current_history_id")
 
   const [firstMode, setFirstMode] = useState(status_mode_ls ? status_mode_ls : false)
   const [stateMode, setStateMode] = useState(mode_ls ? mode_ls : "advice")
@@ -413,6 +415,7 @@ const Admin = () => {
     localStorage.setItem("current_history_tem", viewVersion[idx].template)
     localStorage.setItem("current_history_id", idx)
     setStateVersion(false)
+    get_version(id)
     window.location.reload()
     return
   }
@@ -477,6 +480,10 @@ const Admin = () => {
         setVersionTemplate(res.data)
         setViewVersion(res.data)
         if (current_version_ls != undefined) {
+          localStorage.setItem("current_version", res.data[current_history_ls]._id)
+          localStorage.setItem("current_name_tem", res.data[current_history_ls].name)
+          localStorage.setItem("current_history_tem", res.data[current_history_ls].template)
+          setCurrentHisTem(res.data[current_history_ls].template)
           return
         } else {
           localStorage.setItem("current_version", res.data[0]._id)
@@ -514,8 +521,8 @@ const Admin = () => {
       })
   }
 
-  const delete_section_template = () => {
-    deleteSectionTemplate(cureent_section_tem_ls)
+  const delete_section_template = (id) => {
+    deleteSectionTemplate(id)
       .then(_ => {
         localStorage.removeItem("current_sec_tem")
         localStorage.removeItem("current_sec_tem_name")
@@ -797,8 +804,8 @@ const Admin = () => {
   }
 
   const handleUpdateTemplate = e => {
-    e.preventDefault()
-    updateTemplate(current_version_ls, template)
+    e.preventDefault()    
+    updateTemplate(current_version_ls, {"template" : template})
       .then(_ => {
         setCurrentHisTem(template.template)
         localStorage.setItem("current_history_tem", template.template)
@@ -810,15 +817,15 @@ const Admin = () => {
 
   const handleUpdateSelect = mode => {
     if (mode == "Intelligent_Advisor") {
-      updateSelectMain(data.user_id, {"select_main": current_version_ls})
+      updateSelectMain(data.user_id, { "select_main": current_version_ls })
         .then(_ => {
           window.location.reload()
           return;
         })
         .catch(err => console.log(err))
-    } 
+    }
     if (mode == "Just_Venting") {
-      updateSelectSecondery(data.user_id, {"select_secondery": current_version_ls})
+      updateSelectSecondery(data.user_id, { "select_secondery": current_version_ls })
         .then(_ => {
           window.location.reload()
           return;
@@ -1140,64 +1147,85 @@ const Admin = () => {
         <div className="chat-history" id='chat-history'>
           <FontAwesomeIcon icon={faExpand} className='icon-full-selc' onClick={() => fullSelect()} />
           <div className="content-prompt-template">
-            <h2 className='h1-prompt'>Prompt Template</h2>
-            <div className="nav-option">
-              <div className="empty"></div>
-              <div className="block-select">
-                <div className="select-prompt" style={stateSOF ? { display: "block" } : { display: "none" }} onClick={() => onOffSection()}>
-                  <p>{current_sec_tem_name_ls} ▽</p>
-                  <div className="full-select" style={stateSelect ? { display: "block" } : { display: "none" }}>
-                    <h1 onClick={() => setStateNewSec(true)} ><FontAwesomeIcon icon={faPlus} /> New</h1>
-                    {
-                      sectionTemplatem.map((item, idx) => {
-                        return (<h1 key={idx} onClick={() => select_section(item._id, idx)}>{item.name}</h1>)
-                      })
-                    }
-                  </div>
+            {sectionTemplatem.length > 0 ? (
+              <div style={{ height: "100%" }}>
+                <h2 className='h1-prompt'>Prompt Template</h2>
+                <div className="empty"></div>
+                <div className="name-template">
+                  <div className="new-name-sec" onClick={() => setStateNewSec(true)}>New Session</div>
+                  {sectionTemplatem.map((item, idx) => {
+                    return (
+                      <div className="name-sec" key={idx} onClick={() => { select_section(item._id, idx); setStateFullTem(true) }}>
+                        <h2>{item.name}</h2>
+                        <FontAwesomeIcon icon={faTrash} className='fa-icon-delete' style={{ cursor: "pointer" }} onClick={() => delete_section_template(item._id)} />
+                      </div>
+                    )
+                  })}
                 </div>
-                <div className="select-version" style={stateVOF ? { display: "block" } : { display: "none" }} onClick={() => onOffVersion()}>
-                  <p>{current_name_tem_ls} ▽</p>
-                  <div className="full-version" style={stateVersion ? { display: "block" } : { display: "none" }}>
-                    <h1 onClick={() => setNewVersion(true)} ><FontAwesomeIcon icon={faPlus} /> New</h1>
-                    {
-                      versionTemplate.map((item, idx) => {
-                        return (
-                          <h1 key={idx} onClick={() => select_version(item._id, idx)}>{item.name}</h1>
-                        )
-                      })
-                    }
-                    <div className="blur"></div>
+              </div>
+            ) : (
+              <div className="empty-section">
+                <p className='warn-new-sec'>กรุณาสร้าง session สำหรับ template</p>
+                <form onSubmit={create_section_template}>
+                  <input type="text" name='name' placeholder='name session' onChange={e => setNameSec(e.target.value)} required />
+                  <button type='submit'>Create</button>
+                </form>
+              </div>
+            )}
+            {
+              versionTemplate.length > 0 ? (
+                <div className="name-templates" style={stateFullTem ? { display: "block" } : { display: "none" }} >
+                  <div className='select'>
+                    <div>
+                      <select name="verion" style={{ marginRight: "1rem" }} onChange={e => select_version(e.target.value, e.target.selectedIndex)} defaultValue={current_version_ls}>
+                        {
+                          versionTemplate.map((item, idx) => {
+                            return (
+                              <option key={idx} value={item._id}>{item.name}</option>
+                            )
+                          })
+                        }
+                      </select>
+                      <FontAwesomeIcon style={{ cursor: "pointer" }} icon={faPlus} className='fa-icon-add' onClick={() => setNewVersion(true)} />
+                      <FontAwesomeIcon style={{ cursor: "pointer", marginLeft: "1rem" }} icon={faTrash} className='fa-icon-delete' onClick={() => delete_history_template()} />
+                      <FontAwesomeIcon style={{ cursor: "pointer", marginLeft: "1rem" }} icon={faRightFromBracket} onClick={() => setStateFullTem(false)} />
+                    </div>
+                    <button onClick={() => setStateSelc(true)}>Use</button>
                   </div>
+                  <form onSubmit={handleUpdateTemplate}>
+                    <textarea name="template" defaultValue={currentHisTem} onChange={e => setTemplate(e.target.value)}></textarea>
+                    <button className='btn-update' type='submit'>Update</button>
+                  </form>
                 </div>
-                <FontAwesomeIcon style={stateSelect ? { display: "block", marginRight: "1rem", cursor: "pointer" } : { display: "none" }} icon={faTrash} onClick={() => delete_section_template()} />
-                <FontAwesomeIcon style={stateVersion ? { display: "block", marginRight: "1rem", cursor: "pointer" } : { display: "none" }} icon={faTrash} onClick={() => delete_history_template()} />
-                <button className='select-template' onClick={() => setStateSelc(true)}>Select</button>
-              </div>
-            </div>
-            <form onSubmit={handleUpdateTemplate}>
-              <textarea name="template" defaultValue={currentHisTem} placeholder='Empty' onChange={e => handleChangeTemplate(e)}></textarea>
-              <div className="btn-s-c">
-                <button type="reset">{LANGUAGES.messages[language].cancel}</button>
-                <button type="submit">{LANGUAGES.messages[language].save}</button>
-              </div>
-            </form>
+              ) : (
+                <div className="empty-template">
+                  <p>กรุณาสร้าง template สำหรับ session</p>
+                  <form onSubmit={create_history_template}>
+                    <input type="text" name='name' placeholder='name template' required onChange={e => handleChangeTemplate(e)} />
+                    <textarea name="template" placeholder='prompt template' required onChange={e => handleChangeTemplate(e)}></textarea> <br />
+                    <button type='submit'>Create</button>
+                  </form>
+                </div>
+              )
+            }
           </div>
           <div className="new-section-tem" style={stateNewSec ? { display: "flex" } : { display: "none" }}>
             <form onSubmit={create_section_template}>
-              <input type="text" name='name' placeholder='name' onChange={e => setNameSec(e.target.value)} />
+              <input type="text" name='name' placeholder='name session' onChange={e => setNameSec(e.target.value)} />
               <div className="btn-s-c">
-                <button type="reset" onClick={() => setStateNewSec(false)}>{LANGUAGES.messages[language].cancel}</button>
-                <button type="submit">{LANGUAGES.messages[language].save}</button>
+                <button style={{ marginRight: "1rem" }} type="reset" onClick={() => setStateNewSec(false)}>{LANGUAGES.messages[language].cancel}</button>
+                <button type="submit">Create</button>
               </div>
             </form>
           </div>
-          <div className="select-template-in" style={stateSelc ? {display: "block"} : {display: "none"}}>
+          <div className="select-template-in" style={stateSelc ? { display: "block" } : { display: "none" }}>
             <div className="text">
               <h1>{current_sec_tem_name_ls}</h1>
+              <div className="line-h"></div>
               <h1>{current_name_tem_ls}</h1>
             </div>
             <div className="pl-select">
-              <h1>Please Select Modoe</h1>
+              <p>โปรดเลือกโหมด</p>
               <div className="btn-m1-m2">
                 <button onClick={() => handleUpdateSelect("Intelligent_Advisor")}>Intelligent Advisor</button> <br />
                 <button onClick={() => handleUpdateSelect("Just_Venting")}>Just Venting</button> <br />
@@ -1300,10 +1328,9 @@ const Admin = () => {
         </div>
       </div>
       <div className="new-version" style={newVersion ? { display: "flex" } : { display: "none" }}>
-        <FontAwesomeIcon icon={faRightFromBracket} className='icon-exit-new-version' onClick={() => setNewVersion(false)} />
         <form onSubmit={create_history_template} style={LANGUAGES.fontFamily[language]}>
           <div className="btn-save-cel">
-            <button type="reset">ยกเลิก</button>
+            <button onClick={() => setNewVersion(false)}>ยกเลิก</button>
             <button type="submit">ยืนยัน</button>
           </div>
           <div className="input-version">
